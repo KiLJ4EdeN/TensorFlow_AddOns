@@ -13,13 +13,140 @@ Famous cnn block implementations.
 
 ## Import the block module and use the predefined  layers.
 ```python
-import blocks
-
+from blocks import __conv_block, __dense_block, __classification_block, __parallel_block
+from blocks import __depthwise_block, __indentity_block, __residual_block
 ```
 
 
 ## Examples:
 ### resnet like network.
 ```python
+import tensorflow as tf
+from blocks import __identity_block, __residual_block, __dense_block, __classification_block
 
+inputs = tf.keras.layers.Input(shape=(32, 32, 3))
+
+x = __residual_block(inputs, filter_start=16, kernel_size=(3, 3),
+                     use_bn=True, use_constraint=True,
+                     use_dropout=True, constraint_rate=1,
+                     dropout_rate=0.25, activation='relu')
+
+x = __identity_block(x, filter_start=16, kernel_size=(3, 3),
+                     use_bn=True, activation='relu')
+x = __identity_block(x, filter_start=16, kernel_size=(3, 3),
+                     use_bn=True, activation='relu')
+
+x = __residual_block(x, filter_start=32, kernel_size=(3, 3),
+                     use_bn=True, use_constraint=True,
+                     use_dropout=True, constraint_rate=1,
+                     dropout_rate=0.25, activation='relu')
+x = __identity_block(x, filter_start=32, kernel_size=(3, 3),
+                     use_bn=True, activation='relu')
+x = __identity_block(x, filter_start=32, kernel_size=(3, 3),
+                     use_bn=True, activation='relu')
+
+
+x = __residual_block(x, filter_start=64, kernel_size=(3, 3),
+                     use_bn=True, use_constraint=True,
+                     use_dropout=True, constraint_rate=1,
+                     dropout_rate=0.25, activation='relu')
+x = __identity_block(x, filter_start=64, kernel_size=(3, 3),
+                     use_bn=True, activation='relu')
+x = __identity_block(x, filter_start=64, kernel_size=(3, 3),
+                     use_bn=True, activation='relu')
+
+x = __residual_block(x, filter_start=128, kernel_size=(3, 3),
+                     use_bn=True, use_constraint=True,
+                     use_dropout=True, constraint_rate=1,
+                     dropout_rate=0.25, activation='relu')
+x = __identity_block(x, filter_start=128, kernel_size=(3, 3),
+                     use_bn=True, activation='relu')
+x = __identity_block(x, filter_start=128, kernel_size=(3, 3),
+                     use_bn=True, activation='relu')
+
+x = __dense_block(x, unit_start=512, num_blocks=2,
+                  flatten=True, use_constraint=True,
+                  use_dropout=True, constraint_rate=1,
+                  dropout_rate=0.25, activation='relu')
+
+x = __classification_block(x, num_classes=100)
+
+model = tf.keras.models.Model(inputs=inputs, outputs=x)
+print(model.summary())
+```
+
+### mobilenet network.
+```python
+import tensorflow as tf
+from blocks import __depthwise_block, __dense_block, __classification_block
+
+inputs = tf.keras.layers.Input(shape=(32, 32, 3))
+
+x = __depthwise_block(inputs, filters=8, strides=(1, 1), alpha=1.0,
+                      use_bn=True, use_dropout=True, 
+                      dropout_rate=0.25, activation='relu')
+
+x = __depthwise_block(x, filters=16, strides=(2, 2), alpha=1.0,
+                      use_bn=True, use_dropout=True, 
+                      dropout_rate=0.25, activation='relu')
+
+x = __depthwise_block(x, filters=32, strides=(1, 1), alpha=1.0,
+                      use_bn=True, use_dropout=True, 
+                      dropout_rate=0.25, activation='relu')
+
+x = __depthwise_block(x, filters=64, strides=(2, 2), alpha=1.0,
+                      use_bn=True, use_dropout=True, 
+                      dropout_rate=0.25, activation='relu')
+
+x = __depthwise_block(x, filters=128, strides=(1, 1), alpha=1.0,
+                      use_bn=True, use_dropout=True, 
+                      dropout_rate=0.25, activation='relu')
+
+x = __depthwise_block(x, filters=256, strides=(2, 2), alpha=1.0,
+                      use_bn=True, use_dropout=True, 
+                      dropout_rate=0.25, activation='relu')
+
+x = __depthwise_block(x, filters=512, strides=(1, 1), alpha=1.0,
+                      use_bn=True, use_dropout=True, 
+                      dropout_rate=0.25, activation='relu')
+
+x = __depthwise_block(x, filters=1024, strides=(2, 2), alpha=1.0,
+                      use_bn=True, use_dropout=True, 
+                      dropout_rate=0.25, activation='relu')
+
+x = __dense_block(x, unit_start=512, num_blocks=1,
+                  flatten=True, use_constraint=True,
+                  use_dropout=True, constraint_rate=1,
+                  dropout_rate=0.5, activation='relu')
+
+x = __classification_block(x, num_classes=100)
+
+model = tf.keras.models.Model(inputs=inputs, outputs=x)
+print(model.summary())
+```
+
+### Simple CNN.
+```python
+import tensorflow as tf
+from blocks import __conv_block, __dense_block, __classification_block
+
+# basic net.
+
+inputs = tf.keras.layers.Input(shape=(32, 32, 3))
+
+x = __conv_block(inputs, filter_start=64, kernel_size=(2, 2),
+                 num_blocks=2,
+                 use_bn=True, use_constraint=True,
+                 use_dropout=True, constraint_rate=1,
+                 dropout_rate=0.3, activation='relu')
+
+x = __dense_block(x, unit_start=128, num_blocks=2,
+                  flatten=True, use_constraint=True,
+                  use_dropout=True, constraint_rate=1,
+                  dropout_rate=0.5, activation='relu')
+
+x = __classification_block(x, num_classes=100)
+
+model = tf.keras.models.Model(inputs=inputs, outputs=x)
+print(model.summary())
 ```
