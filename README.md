@@ -19,7 +19,7 @@ from blocks import __depthwise_block, __indentity_block, __residual_block
 
 
 ## Examples:
-### resnet like network.
+### Resnet Like Architecture.
 ```python
 import tensorflow as tf
 from blocks import __identity_block, __residual_block, __dense_block, __classification_block
@@ -75,7 +75,7 @@ model = tf.keras.models.Model(inputs=inputs, outputs=x)
 print(model.summary())
 ```
 
-### mobilenet network.
+### Mobilenet Customized.
 ```python
 import tensorflow as tf
 from blocks import __depthwise_block, __dense_block, __classification_block
