@@ -27,7 +27,8 @@ def train(model, X_train, X_test, Y_train, Y_test, augment=True,
   else:
     history = model.fit(X_train, Y_train, epochs=epochs, batch_size=batch_size, 
                         verbose=1, validation_data=(X_test, Y_test))
-    
+
+  return model, history
 
 def plot_history(history):
   plt.figure(figsize=(6, 2))
