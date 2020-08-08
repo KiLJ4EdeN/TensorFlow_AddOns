@@ -125,6 +125,29 @@ model = tf.keras.models.Model(inputs=inputs, outputs=x)
 print(model.summary())
 ```
 
+### Parallel Feature Extraction.
+```python
+import tensorflow as tf
+from blocks import __parallel_block, __dense_block, __classification_block
+
+inputs = tf.keras.layers.Input(shape=(32, 32, 3))
+
+x = __parallel_block(inputs, width=3, filter_start=64,
+                     num_blocks=2,
+                     use_bn=True, use_constraint=True,
+                     use_dropout=True, constraint_rate=2,
+                     dropout_rate=0.2, activation='relu')
+
+x = __dense_block(x, unit_start=64, num_blocks=1,
+                  flatten=False, use_constraint=True,
+                  use_dropout=True, constraint_rate=2,
+                  dropout_rate=0.2, activation='relu')
+
+x = __classification_block(x, num_classes=100)
+model = tf.keras.models.Model(inputs=inputs, outputs=x)
+print(model.summary())
+```
+
 ### Simple CNN.
 ```python
 import tensorflow as tf
