@@ -8,7 +8,9 @@ Famous cnn block implementations.
 # Usage:
 ## Install Dependencies w pip:
 
-1- tensorflow
+```bash
+pip install tensorflow
+```
 
 
 ## Import the block module and use the predefined  layers.
