@@ -175,3 +175,12 @@ x = __classification_block(x, num_classes=100)
 model = tf.keras.models.Model(inputs=inputs, outputs=x)
 print(model.summary())
 ```
+
+### Transfer Learning Inference.
+```python
+from transfer import Transfer_Learn
+
+# note that selecting included_layers as -1 sets all layers of model for training.
+model = Transfer_Learn(input_shape=(224, 224, 3), classes=1, included_layers=1, model='MobileNet')
+print(model.summary())
+```
