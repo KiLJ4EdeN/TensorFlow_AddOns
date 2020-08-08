@@ -3,8 +3,8 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 
 
-def train(model, X_train, X_test, Y_train, Y_test, augment=True,
-          batch_size, epochs):
+def train(model, X_train, X_test, Y_train, Y_test,
+          batch_size, epochs, augment=True):
   
   model.compile(loss='categorical_crossentropy', 
           metrics=['accuracy'],
