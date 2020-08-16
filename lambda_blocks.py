@@ -35,6 +35,6 @@ def image_fft(x):
   x = tf.cast(x, dtype=tf.float32)
   x = tf.image.rgb_to_grayscale(x)
   x = tf.signal.fft2d(tf.cast(x, dtype=tf.complex64))
-  return x
+  return tf.cast(tf.abs(x), dtype=tf.float32)
 
 fft_layer = tf.keras.layers.Lambda(image_fft)
