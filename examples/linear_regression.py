@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import tensorflow as tf
 import numpy as np
-rng = np.random
 
 # Parameters.
 learning_rate = 0.01
@@ -14,8 +13,12 @@ Y = np.array([1.7,2.76,2.09,3.19,1.694,1.573,3.366,2.596,2.53,1.221,
               2.827,3.465,1.65,2.904,2.42,2.94,1.3])
 
 # Weight and Bias, initialized randomly.
-W = tf.Variable(rng.randn(), name="weight")
-b = tf.Variable(rng.randn(), name="bias")
+W = tf.Variable(tf.random.normal(shape=[1], mean=0.0, stddev=1.0,
+                                 dtype=tf.dtypes.float32,
+                                 seed=None, name=None), name="weight")
+b = tf.Variable(tf.random.normal(shape=[1], mean=0.0, stddev=1.0,
+                                 dtype=tf.dtypes.float32,
+                                 seed=None, name=None), name="bias")
 
 # Linear regression (Wx + b).
 def linear_regression(x):
