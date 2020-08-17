@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
 # MNIST dataset parameters.
 num_classes = 10 # 0 to 9 digits
@@ -90,7 +91,6 @@ pred = logistic_regression(X_test)
 print("Test Accuracy: %f" % accuracy(pred, Y_test))
 
 # Visualize predictions.
-import matplotlib.pyplot as plt
 # Predict 5 images from validation set.
 n_images = 5
 test_images = X_test[:n_images]
