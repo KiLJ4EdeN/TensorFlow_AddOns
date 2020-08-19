@@ -1,4 +1,4 @@
-# UTILS
+# KERAS UTILS
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 
