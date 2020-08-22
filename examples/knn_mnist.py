@@ -1,4 +1,4 @@
-paramk = 11 # parameter k of K-nearest neighbors
+paramk = 11 # The k Parameter of Nearest Neighbors Algorithm.
 
 # Defining KNN Graph with L0 Norm
 x = tf.placeholder(trImages.dtype, shape=trImages.shape) # all train images, i.e., 60000 x 28 x 28
