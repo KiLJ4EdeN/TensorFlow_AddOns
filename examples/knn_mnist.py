@@ -1,9 +1,11 @@
 paramk = 11 # The k Parameter of Nearest Neighbors Algorithm.
 
 # Defining KNN Graph with L0 Norm
+# TODO: remove placeholders for tf2 compatibility.
 x = tf.placeholder(trImages.dtype, shape=trImages.shape) # all train images, i.e., 60000 x 28 x 28
 y = tf.placeholder(tImages.dtype, shape=tImages.shape[1:]) # a test image, 28 x 28
 
+# TODO: remove contrib calls.
 xThresholded = tf.clip_by_value(tf.cast(x, tf.int32), 0, 1) # x is int8 which is not supported in many tf functions, hence typecast
 yThresholded = tf.clip_by_value(tf.cast(y, tf.int32), 0, 1) # clip_by_value converts dataset to tensors of 0 and 1, i.e., 1 where tensor is non-zero
 computeL0Dist = tf.count_nonzero(xThresholded - yThresholded, axis=[1,2]) # Computing L0 Norm by reducing along axes
