@@ -1,4 +1,7 @@
 # TF CUSTOM LAYERS
+import tensorflow as tf
+import cv2
+
 
 def image_to_gray(x):
   return tf.image.rgb_to_grayscale(tf.cast(x, dtype=tf.float32))
@@ -38,3 +41,13 @@ def image_fft(x):
   return tf.cast(tf.abs(x), dtype=tf.float32)
 
 fft_layer = tf.keras.layers.Lambda(image_fft)
+
+
+def gabor_filter(x):
+  x = tf.cast(x, dtype=tf.float32)
+  x = tf.image.rgb_to_grayscale(x)
+  params = {'ksize':(3, 3), 'sigma':1.0, 'theta': 0, 'lambd':5.0, 'gamma':0.02}
+  kernel = cv2.getGaborKernel(**params)
+  kernel = tf.expand_dims(kernel, 2)
+  kernel = tf.expand_dims(kernel, 3)
+  return tf.nn.conv2d(image, filter, strides=[1, 1, 1, 1], padding='SAME')
