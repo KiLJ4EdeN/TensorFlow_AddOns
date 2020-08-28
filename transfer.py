@@ -9,7 +9,6 @@ def Transfer_Learn(input_shape, classes, included_layers=1, model='ResNet50'):
                     'NASNetMobile', 'InceptionV3', 'EfficientNetB0']
   image_input = Input(input_shape)
 
-
   print('Model is being loaded...')
   # select the model
   if model == 'ResNet50':
