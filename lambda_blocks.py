@@ -42,7 +42,6 @@ def image_fft(x):
 
 fft_layer = tf.keras.layers.Lambda(image_fft)
 
-
 def gabor_filter(x):
   x = tf.cast(x, dtype=tf.float32)
   x = tf.image.rgb_to_grayscale(x)
