@@ -19,6 +19,7 @@ numErrs = 0
 numTestImages = np.shape(tLabels)[0]
 numTrainImages = np.shape(trLabels)[0] # so many train images
 
+# remove session.
 with tf.Session() as sess:
   for iTeI in range(0,numTestImages): # iterate each image in test set
     predictedLabel = sess.run([findPredictedLabel], feed_dict={x:trImages, y:tImages[iTeI]})   
