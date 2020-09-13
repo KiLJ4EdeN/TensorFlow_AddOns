@@ -49,6 +49,7 @@ def gabor_filter(x):
   kernel = cv2.getGaborKernel(**params)
   kernel = tf.expand_dims(kernel, 2)
   kernel = tf.expand_dims(kernel, 3)
-  return tf.nn.conv2d(image, filter, strides=[1, 1, 1, 1], padding='SAME')
+  kernel = tf.cast(kernel, tf.float32)
+  return tf.nn.conv2d(x, kernel, strides=[1, 1, 1, 1], padding='SAME')
 
 gabor_layer = tf.keras.layers.Lambda(gabor_filter)
