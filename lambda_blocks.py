@@ -42,14 +42,34 @@ def image_fft(x):
 
 fft_layer = tf.keras.layers.Lambda(image_fft)
 
-def gabor_filter(x):
-  x = tf.cast(x, dtype=tf.float32)
-  x = tf.image.rgb_to_grayscale(x)
-  params = {'ksize':(3, 3), 'sigma':1.0, 'theta': 0, 'lambd':5.0, 'gamma':0.02}
-  kernel = cv2.getGaborKernel(**params)
-  kernel = tf.expand_dims(kernel, 2)
-  kernel = tf.expand_dims(kernel, 3)
-  kernel = tf.cast(kernel, tf.float32)
-  return tf.nn.conv2d(x, kernel, strides=[1, 1, 1, 1], padding='SAME')
+class GaborLayer(object):
+  def __init__(self, kernel_size=(3, 3), sigma=1.0, theta=0, lambd=5.0,
+               gamma=0.02):
+    self.kernel_size = kernel_size
+    self.sigma = sigma
+    self.theta = theta
+    self.lambd = lambd
+    self.gamma = gamma
 
-gabor_layer = tf.keras.layers.Lambda(gabor_filter)
+  def reset_params(self, kernel_size=(3, 3), sigma=1.0, theta=0, lambd=5.0,
+                    gamma=0.02):
+    self.kernel_size = kernel_size
+    self.sigma = sigma
+    self.theta = theta
+    self.lambd = lambd
+    self.gamma = gamma
+  
+  def gabor_function(x):
+    x = tf.cast(x, dtype=tf.float32)
+    x = tf.image.rgb_to_grayscale(x)
+    params = {'ksize': self.kernel_size,
+              'sigma': self.sigma, 'theta': self.theta,
+              'lambd': self.lambd, 'gamma': self.gamma}
+    kernel = cv2.getGaborKernel(**params)
+    kernel = tf.expand_dims(kernel, 2)
+    kernel = tf.expand_dims(kernel, 3)
+    kernel = tf.cast(kernel, tf.float32)
+    return tf.nn.conv2d(x, kernel, strides=[1, 1, 1, 1], padding='SAME')
+
+  def build_layer():
+    return tf.keras.layers.Lambda(gabor_function)
