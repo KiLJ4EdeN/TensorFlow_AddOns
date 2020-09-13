@@ -60,7 +60,7 @@ class CNN(object):
 
 
 if __name__ == '__main__':
-    model = CNN('/run/media/root/Data/FSA/FSA-Net/pre-trained/converted-models/tf/fsanet_noS_capsule_3_16_2_192_5.pb')
+    model = CNN('model.pb')
     image = cv2.imread('test.jpg')
     image = cv2.resize(image, (224, 224))
     image = np.expand_dims(image, axis=0)
