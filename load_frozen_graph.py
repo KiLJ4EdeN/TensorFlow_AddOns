@@ -8,7 +8,7 @@ class CNN(object):
 
     def __init__(self, model_filepath):
 
-        # The file path of model
+        # The File Path of Model
         self.model_filepath = model_filepath
         # Initialize the model
         print('[INFO]: Loading model...')
