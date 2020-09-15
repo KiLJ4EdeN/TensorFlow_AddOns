@@ -24,7 +24,7 @@ X_train = tf.cast(tf.constant(X_train), dtype=tf.float32)
 X_test = tf.cast(tf.constant(X_test), dtype=tf.float32)
 
 # Normalize images value from [0, 255] to [0, 1].
-X_train, X_test = X_train / 255., X_test / 25
+X_train, X_test = X_train / 255., X_test / 255.
 
 print(X_train.shape)
 print(X_test.shape)
