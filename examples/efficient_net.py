@@ -18,4 +18,5 @@ def get_effnet(included_layers=1):
   print(custom_model.summary())
   return model
 
-model = get_effnet(included_layers=-1)
+if __name__ == '__main__':
+  model = get_effnet(included_layers=-1)
